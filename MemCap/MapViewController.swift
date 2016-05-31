@@ -51,49 +51,51 @@ class MapViewController: UIViewController, GMSMapViewDelegate, messageProtocol, 
     //Refreshes the Map to update new scavenger drops
     @IBAction func refresh_view(sender: AnyObject)
     {
-        ref.observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
-            let messages = snapshot.value!["messages"]! as! [String: AnyObject]
-            for (_,value) in messages
-            {
-                let obj = value as! [String: AnyObject]
-                var lat = CLLocationDegrees()
-                var long = CLLocationDegrees()
-                var mess = String()
-                var name = String()
-                var url:NSURL!
-                for (f_key, f_value) in obj
+        if(self.markers.count > 0)
+        {
+            ref.observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
+                let messages = snapshot.value!["messages"]! as! [String: AnyObject]
+                for (_,value) in messages
                 {
-                    if(f_key == "lat")
+                    let obj = value as! [String: AnyObject]
+                    var lat = CLLocationDegrees()
+                    var long = CLLocationDegrees()
+                    var mess = String()
+                    var name = String()
+                    var url:NSURL!
+                    for (f_key, f_value) in obj
                     {
-                        lat = f_value as! CLLocationDegrees
-                    } else if (f_key == "long")
-                    {
-                        long = f_value as! CLLocationDegrees
-                    } else if (f_key == "message")
-                    {
-                        mess = f_value as! String
-                    } else if (f_key == "name")
-                    {
-                        name = f_value as! String
-                    } else
-                    {
-                        url = NSURL(string: f_value as! String)!
+                        if(f_key == "lat")
+                        {
+                            lat = f_value as! CLLocationDegrees
+                        } else if (f_key == "long")
+                        {
+                            long = f_value as! CLLocationDegrees
+                        } else if (f_key == "message")
+                        {
+                            mess = f_value as! String
+                        } else if (f_key == "name")
+                        {
+                            name = f_value as! String
+                        } else
+                        {
+                            url = NSURL(string: f_value as! String)!
+                        }
                     }
+                    let coordinate = CLLocationCoordinate2DMake(lat, long)
+                    let tempMarker = GMSMarker(position: coordinate)
+                    tempMarker.map = self.mapView
+                    tempMarker.icon = UIImage(named: "Message_icon_dark")
+                    let tempUser = User(n: name, url: url)
+                    self.markers.append((tempMarker, mess, tempUser))
                 }
-                let coordinate = CLLocationCoordinate2DMake(lat, long)
-                let tempMarker = GMSMarker(position: coordinate)
-                tempMarker.map = self.mapView
-                tempMarker.icon = UIImage(named: "Message_icon_dark")
-                let tempUser = User(n: name, url: url)
-                self.markers.append((tempMarker, mess, tempUser))
-            }
-        })
-        
+            })
+        }
     }
     
     func setImageMarker()
     {
-        if(self.imageToDrop != nil)
+        if(self.imageToDrop != nil && self.throwAlert(Location.sharedInstance.shouldThrowAlert))
         {
             Location.sharedInstance.startUpdatingLocation()
             let eventMarker = GMSMarker(position: Location.sharedInstance.currLocation!.coordinate)
@@ -107,7 +109,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, messageProtocol, 
     
     func setMessageMarker()
     {
-        if(self.message != nil)
+        if(self.message != nil && !self.throwAlert(Location.sharedInstance.shouldThrowAlert))
         {
             Location.sharedInstance.startUpdatingLocation()
             let eventMarker = GMSMarker(position: Location.sharedInstance.currLocation!.coordinate)
@@ -271,12 +273,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate, messageProtocol, 
     }
     
     //Display the Alert dialogue if needed
-    func throwAlert(shouldAlert: Bool)
+    func throwAlert(shouldAlert: Bool) -> Bool
     {
         if(shouldAlert)
         {
             self.displayNSAlert("An error occured while trying to retrieve your location", titleString: "Location Retrieval Error!")
+            return true
         }
+        return false
     }
     
     //Function for delays
@@ -343,6 +347,4 @@ class MapViewController: UIViewController, GMSMapViewDelegate, messageProtocol, 
         self.messageView?.messageTextField.text = ""
         self.setMessageMarker()
     }
-    
 }
-

@@ -8,12 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		389CE5665CF913E086BAA9D1 /* Pods_MemCap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D25FEE4F39EEC7009232800 /* Pods_MemCap.framework */; };
-		B66340891CF6F40500920223 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66340871CF6F40500920223 /* CircleImageView.swift */; };
 		B663408C1CF6FDAC00920223 /* InfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B663408B1CF6FDAC00920223 /* InfoWindow.swift */; };
 		B663408E1CF6FDB700920223 /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = B663408D1CF6FDB700920223 /* InfoWindow.xib */; };
 		B66340901CFCE37700920223 /* ImageWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = B663408F1CFCE37700920223 /* ImageWindow.xib */; };
 		B66340921CFCE38200920223 /* ImageWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66340911CFCE38200920223 /* ImageWindow.swift */; };
-		B66340941CFCF53000920223 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B66340931CFCF53000920223 /* GoogleService-Info.plist */; };
 		B67B0F5D1CEE474700068AFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67B0F5C1CEE474700068AFB /* AppDelegate.swift */; };
 		B67B0F5F1CEE474700068AFB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67B0F5E1CEE474700068AFB /* MapViewController.swift */; };
 		B67B0F621CEE474700068AFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B67B0F601CEE474700068AFB /* Main.storyboard */; };
@@ -29,17 +27,17 @@
 		B67B0F851CF2669000068AFB /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67B0F841CF2669000068AFB /* MessageView.swift */; };
 		B67B0F871CF2669F00068AFB /* MessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B67B0F861CF2669F00068AFB /* MessageView.xib */; };
 		B67B0F8A1CF2692F00068AFB /* MessageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67B0F891CF2692F00068AFB /* MessageProtocols.swift */; };
+		B69CE2921CFD2C0F00CB1ED1 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69CE2911CFD2C0F00CB1ED1 /* CircleImageView.swift */; };
+		B69CE2941CFD3D0500CB1ED1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B69CE2931CFD3D0500CB1ED1 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2CF1796A437DDB52F2748A24 /* Pods-MemCap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemCap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MemCap/Pods-MemCap.debug.xcconfig"; sourceTree = "<group>"; };
 		5D25FEE4F39EEC7009232800 /* Pods_MemCap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemCap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B66340871CF6F40500920223 /* CircleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircleImageView.swift; path = "../../../Lighthouse-IOS/Lighthouse/CircleImageView.swift"; sourceTree = "<group>"; };
 		B663408B1CF6FDAC00920223 /* InfoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoWindow.swift; sourceTree = "<group>"; };
 		B663408D1CF6FDB700920223 /* InfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoWindow.xib; sourceTree = "<group>"; };
 		B663408F1CFCE37700920223 /* ImageWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageWindow.xib; sourceTree = "<group>"; };
 		B66340911CFCE38200920223 /* ImageWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageWindow.swift; sourceTree = "<group>"; };
-		B66340931CFCF53000920223 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B67B0F591CEE474700068AFB /* MemCap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemCap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B67B0F5C1CEE474700068AFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B67B0F5E1CEE474700068AFB /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +55,8 @@
 		B67B0F841CF2669000068AFB /* MessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		B67B0F861CF2669F00068AFB /* MessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageView.xib; sourceTree = "<group>"; };
 		B67B0F891CF2692F00068AFB /* MessageProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageProtocols.swift; sourceTree = "<group>"; };
+		B69CE2911CFD2C0F00CB1ED1 /* CircleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
+		B69CE2931CFD3D0500CB1ED1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C54E34081C664E56CA4A15F3 /* Pods-MemCap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemCap.release.xcconfig"; path = "Pods/Target Support Files/Pods-MemCap/Pods-MemCap.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,7 +94,7 @@
 		B66340861CF6F3E000920223 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				B66340871CF6F40500920223 /* CircleImageView.swift */,
+				B69CE2911CFD2C0F00CB1ED1 /* CircleImageView.swift */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -132,7 +132,7 @@
 				B67B0F631CEE474700068AFB /* Assets.xcassets */,
 				B67B0F651CEE474700068AFB /* LaunchScreen.storyboard */,
 				B67B0F681CEE474700068AFB /* Info.plist */,
-				B66340931CFCF53000920223 /* GoogleService-Info.plist */,
+				B69CE2931CFD3D0500CB1ED1 /* GoogleService-Info.plist */,
 			);
 			path = MemCap;
 			sourceTree = "<group>";
@@ -268,7 +268,7 @@
 				B67B0F671CEE474700068AFB /* LaunchScreen.storyboard in Resources */,
 				B67B0F641CEE474700068AFB /* Assets.xcassets in Resources */,
 				B67B0F621CEE474700068AFB /* Main.storyboard in Resources */,
-				B66340941CFCF53000920223 /* GoogleService-Info.plist in Resources */,
+				B69CE2941CFD3D0500CB1ED1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,13 +327,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B66340891CF6F40500920223 /* CircleImageView.swift in Sources */,
 				B66340921CFCE38200920223 /* ImageWindow.swift in Sources */,
 				B67B0F7D1CEE52BD00068AFB /* MemCapColors.swift in Sources */,
 				B67B0F721CEE4E2100068AFB /* LoginViewController.swift in Sources */,
 				B67B0F5F1CEE474700068AFB /* MapViewController.swift in Sources */,
 				B67B0F8A1CF2692F00068AFB /* MessageProtocols.swift in Sources */,
 				B67B0F851CF2669000068AFB /* MessageView.swift in Sources */,
+				B69CE2921CFD2C0F00CB1ED1 /* CircleImageView.swift in Sources */,
 				B67B0F791CEE523700068AFB /* JSSAlertView.swift in Sources */,
 				B67B0F751CEE4EF500068AFB /* Location.swift in Sources */,
 				B663408C1CF6FDAC00920223 /* InfoWindow.swift in Sources */,
@@ -453,6 +453,22 @@
 			baseConfigurationReference = 2CF1796A437DDB52F2748A24 /* Pods-MemCap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$CONFIGURATION_BUILD_DIR/Bolts\"",
+					"\"$CONFIGURATION_BUILD_DIR/FBSDKCoreKit\"",
+					"\"$CONFIGURATION_BUILD_DIR/FBSDKLoginKit\"",
+					"\"$CONFIGURATION_BUILD_DIR/FBSDKShareKit\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseAuth/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseDatabase/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseInstanceID/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleInterchangeUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleMaps/Frameworks\"/**",
+					"\"${PODS_ROOT}/GoogleNetworkingUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSymbolUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleUtilities/Frameworks\"",
+				);
 				INFOPLIST_FILE = MemCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jahancherian.MemCap;
@@ -466,6 +482,22 @@
 			baseConfigurationReference = C54E34081C664E56CA4A15F3 /* Pods-MemCap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$CONFIGURATION_BUILD_DIR/Bolts\"",
+					"\"$CONFIGURATION_BUILD_DIR/FBSDKCoreKit\"",
+					"\"$CONFIGURATION_BUILD_DIR/FBSDKLoginKit\"",
+					"\"$CONFIGURATION_BUILD_DIR/FBSDKShareKit\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseAuth/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseDatabase/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseInstanceID/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleInterchangeUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleMaps/Frameworks\"/**",
+					"\"${PODS_ROOT}/GoogleNetworkingUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSymbolUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleUtilities/Frameworks\"",
+				);
 				INFOPLIST_FILE = MemCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jahancherian.MemCap;

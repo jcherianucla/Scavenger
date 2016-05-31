@@ -12,14 +12,8 @@ import FirebaseAuth
 import FBSDKCoreKit
 import FBSDKLoginKit
 
-class LoginViewController: UIViewController {
-    
-    // Code for signout button
-    //    do {
-    //    try FIRAuth.auth()?.signOut()
-    //    } catch {
-    //
-    //    }
+class LoginViewController: UIViewController
+{
     
     var loggedIn = false
     
