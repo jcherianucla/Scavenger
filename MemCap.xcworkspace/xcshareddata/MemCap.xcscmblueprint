@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "1AA72A2FAB2E9D4409A4390DE1ED252B18D5634E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "1AA72A2FAB2E9D4409A4390DE1ED252B18D5634E" : 0,
+    "626CBBEF49413B63473BA3873C66C2DE29A93138" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5901D8A8-D162-49A7-ABF8-9A67B4C2E7F6",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1AA72A2FAB2E9D4409A4390DE1ED252B18D5634E" : "MemCap\/",
+    "626CBBEF49413B63473BA3873C66C2DE29A93138" : "..\/Lighthouse-IOS"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "MemCap",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "MemCap.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jcherianucla\/MemCap.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1AA72A2FAB2E9D4409A4390DE1ED252B18D5634E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/AkhilNadendla\/Lighthouse-IOS",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "626CBBEF49413B63473BA3873C66C2DE29A93138"
+    }
+  ]
+}
