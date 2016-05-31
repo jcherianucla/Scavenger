@@ -10,11 +10,49 @@ import UIKit
 import MapKit
 import GoogleMaps
 import Firebase
-import FirebaseDatabase
 import FBSDKCoreKit
 
 class MapViewController: UIViewController, GMSMapViewDelegate, messageProtocol, UITextViewDelegate
 {
+    var ref = FIRDatabase.database().reference()
+    
+    @IBOutlet weak var darkShadow1: UIView!
+    @IBOutlet weak var darkShadow2: UIView!
+    @IBOutlet weak var darkShadow3: UIView!
+    
+    func roundButtonCorners()
+    {
+        darkShadow1.layer.cornerRadius = 5
+        darkShadow1.layer.masksToBounds = true
+        darkShadow2.layer.cornerRadius = 5
+        darkShadow2.layer.masksToBounds = true
+        darkShadow3.layer.cornerRadius = 5
+        darkShadow3.layer.masksToBounds = true
+    }
+    
+    @IBAction func unwindAction(unwindSegue: UIStoryboardSegue)
+    {
+        if let controller = unwindSegue.sourceViewController as? CameraViewController
+        {
+            self.imageToDrop = controller.imageCaptured
+            let imageData: NSData? = UIImageJPEGRepresentation(self.imageToDrop!, 1.0)
+            if(imageData != nil)
+            {
+                
+                //let base64String = imageData!.base64EncodedStringWithOptions(.EncodingEndLineWithLineFeed)
+                let base64String  = imageData!.base64EncodedStringWithOptions([])
+                let sendLat = Location.sharedInstance.currLocation!.coordinate.latitude as NSNumber
+                let sendLong = Location.sharedInstance.currLocation!.coordinate.longitude as NSNumber
+                let stringyURL = self.currUser.picURL.absoluteString as NSString
+                let data = ["photo" : base64String, "lat": sendLat, "long": sendLong, "name": currUser.name, "profPic": stringyURL]
+                self.ref.child("photos").childByAutoId().setValue(data)
+            } else {
+                displayNSAlert("An error occured while trying to encode image", titleString: "Image Encoding Error!")
+            }
+            self.setImageMarker()
+        }
+    }
+    
     private class User
     {
         var name = String()
@@ -35,8 +73,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, messageProtocol, 
         }
     }
     
-    var ref = FIRDatabase.database().reference()
-    
     //Take an image by transitioning to a different view controller
     @IBAction func drop_picture(sender: AnyObject)
     {
@@ -48,54 +84,110 @@ class MapViewController: UIViewController, GMSMapViewDelegate, messageProtocol, 
         self.messageView?.hidden = false
     }
     
+    private func getFirebaseData()
+    {
+        ref.observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
+            var messages:[String: AnyObject]!
+            var photos: [String: AnyObject]!
+            
+            let firDict = snapshot.value! as! [String:AnyObject]
+            for (key, _) in firDict
+            {
+                if(key == "messages")
+                {
+                    messages = snapshot.value!["messages"]! as! [String: AnyObject]
+                }
+                if(key == "photos")
+                {
+                    photos = snapshot.value!["photos"]! as! [String: AnyObject]
+                }
+            }
+            
+            for (_,value) in messages
+            {
+                let obj = value as! [String: AnyObject]
+                var lat = CLLocationDegrees()
+                var long = CLLocationDegrees()
+                var mess = String()
+                var name = String()
+                var url:NSURL!
+                for (f_key, f_value) in obj
+                {
+                    if(f_key == "lat")
+                    {
+                        lat = f_value as! CLLocationDegrees
+                    } else if (f_key == "long")
+                    {
+                        long = f_value as! CLLocationDegrees
+                    } else if (f_key == "message")
+                    {
+                        mess = f_value as! String
+                    } else if (f_key == "name")
+                    {
+                        name = f_value as! String
+                    } else
+                    {
+                        url = NSURL(string: f_value as! String)!
+                    }
+                }
+                let coordinate = CLLocationCoordinate2DMake(lat, long)
+                let tempMarker = GMSMarker(position: coordinate)
+                tempMarker.map = self.mapView
+                tempMarker.icon = UIImage(named: "Message_icon_dark")
+                let tempUser = User(n: name, url: url)
+                self.markers.append((tempMarker, mess, tempUser))
+            }
+            
+            for (_, value) in photos
+            {
+                let obj = value as! [String: AnyObject]
+                var lat = CLLocationDegrees()
+                var long = CLLocationDegrees()
+                var encImage = String()
+                var userImage: UIImage!
+                var name = String()
+                var url:NSURL!
+                for (f_key, f_value) in obj
+                {
+                    if(f_key == "lat")
+                    {
+                        lat = f_value as! CLLocationDegrees
+                    } else if (f_key == "long")
+                    {
+                        long = f_value as! CLLocationDegrees
+                    } else if (f_key == "photo")
+                    {
+                        encImage = f_value as! String
+                        let imageData = NSData(base64EncodedString: encImage, options: NSDataBase64DecodingOptions([]))
+                        userImage = UIImage(data: imageData!)!
+                    } else if (f_key == "name")
+                    {
+                        name = f_value as! String
+                    } else
+                    {
+                        url = NSURL(string: f_value as! String)!
+                    }
+                }
+                let coordinate = CLLocationCoordinate2DMake(lat, long)
+                let tempMarker = GMSMarker(position: coordinate)
+                tempMarker.map = self.mapView
+                tempMarker.icon = UIImage(named: "Camera_icon_dark")
+                let tempUser = User(n: name, url: url)
+                self.markers.append((tempMarker, userImage, tempUser))
+            }
+        })
+        
+    }
+    
     //Refreshes the Map to update new scavenger drops
     @IBAction func refresh_view(sender: AnyObject)
     {
-        if(self.markers.count > 0)
-        {
-            ref.observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
-                let messages = snapshot.value!["messages"]! as! [String: AnyObject]
-                for (_,value) in messages
-                {
-                    let obj = value as! [String: AnyObject]
-                    var lat = CLLocationDegrees()
-                    var long = CLLocationDegrees()
-                    var mess = String()
-                    var name = String()
-                    var url:NSURL!
-                    for (f_key, f_value) in obj
-                    {
-                        if(f_key == "lat")
-                        {
-                            lat = f_value as! CLLocationDegrees
-                        } else if (f_key == "long")
-                        {
-                            long = f_value as! CLLocationDegrees
-                        } else if (f_key == "message")
-                        {
-                            mess = f_value as! String
-                        } else if (f_key == "name")
-                        {
-                            name = f_value as! String
-                        } else
-                        {
-                            url = NSURL(string: f_value as! String)!
-                        }
-                    }
-                    let coordinate = CLLocationCoordinate2DMake(lat, long)
-                    let tempMarker = GMSMarker(position: coordinate)
-                    tempMarker.map = self.mapView
-                    tempMarker.icon = UIImage(named: "Message_icon_dark")
-                    let tempUser = User(n: name, url: url)
-                    self.markers.append((tempMarker, mess, tempUser))
-                }
-            })
-        }
+        self.getFirebaseData()
     }
     
     func setImageMarker()
     {
-        if(self.imageToDrop != nil && self.throwAlert(Location.sharedInstance.shouldThrowAlert))
+        if(self.imageToDrop != nil && !self.throwAlert(Location.sharedInstance.shouldThrowAlert))
         {
             Location.sharedInstance.startUpdatingLocation()
             let eventMarker = GMSMarker(position: Location.sharedInstance.currLocation!.coordinate)
@@ -145,37 +237,42 @@ class MapViewController: UIViewController, GMSMapViewDelegate, messageProtocol, 
         return false
     }
     
+    //Return UIImage from a url
     private func createImage(url: NSURL) -> UIImage
     {
         return UIImage(data: NSData(contentsOfURL: url)!)!
     }
     
+    //Create the respective windows based on what type of marker is clicked
     private func initWindow(objectType: Int, object: AnyObject, user: User)
     {
-        //let userImage = UIImage() //Replace with image from Firebase
+        //Image selected
         if(objectType == 0)
         {
             window?.hidden = true
             imageWindow?.profileName.text = user.name
             imageWindow?.circleThumbnail.setThumbnailImage(createImage(user.picURL))
             imageWindow?.userImage.image = object as? UIImage
-            
-        } else
+            imageWindow?.hidden = false
+        }
+            //Message selected
+        else
         {
             imageWindow?.hidden = true
             window!.profileName.text = user.name
             window!.circleThumbnail.setThumbnailImage(createImage(user.picURL))
             window!.userMessage.text = object as! String
+            window!.hidden = false
         }
-        window!.hidden = false
     }
     
     //Image that is passed back from the Camera
     var imageToDrop: UIImage?
     
     //Message that we store from the message View
-    
     var message : String?
+    
+    //Current active user on device
     private var currUser = User()
     
     //Temporary current location
@@ -184,8 +281,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate, messageProtocol, 
     //Array of markers and what object they hold
     private var markers = [(GMSMarker, AnyObject, User)]()
     
+    //Custom View for displaying messages
     var window: InfoWindow?
     
+    //Custom View for displaying Images
     var imageWindow: ImageWindow?
     
     //Custom message view dialogue box
@@ -216,19 +315,30 @@ class MapViewController: UIViewController, GMSMapViewDelegate, messageProtocol, 
             Location.sharedInstance.stopUpdatingLocation()
         }
         
-        //Set up Views
+        //Initialize Views
         messageView = MessageView()
         window = InfoWindow()
         imageWindow = ImageWindow()
+        
+        //Set View Sizes
         initExtraViews()
         
+        //Set Delegates
         messageView!.delegate = self
         self.messageView?.messageTextField.delegate = self
+        
+        
+        //Add UI Components
+        self.roundButtonCorners()
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
         
         //See if we should drop a image marker
         self.setImageMarker()
     }
     
+    //Set the size and location of the external views
     func initExtraViews()
     {
         let mwidth = self.view.bounds.size.width * 0.6
@@ -248,6 +358,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, messageProtocol, 
         self.window!.hidden = true
         self.view.addSubview(window!)
         
+        //Change the width and height for more compatibility with other devices
         let iwidth: CGFloat = 300.0
         let iheight: CGFloat = 450.0
         let icenterX = self.view.center.x - iwidth/2
@@ -257,12 +368,15 @@ class MapViewController: UIViewController, GMSMapViewDelegate, messageProtocol, 
         self.view.addSubview(imageWindow!)
     }
     
+    //Make view and keyboard disappear when clicked outside region
     func mapView(mapView: GMSMapView, didTapAtCoordinate coordinate: CLLocationCoordinate2D) {
         messageView?.hidden = true
         messageView?.messageTextField.resignFirstResponder()
         window?.hidden = true
+        imageWindow?.hidden = true
     }
     
+    //Make keyboard disappear when press Return
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if(text == "\n")
         {
@@ -295,8 +409,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, messageProtocol, 
     }
     
     //Get User's Facebook data
-    var imageURL:UIImageView!
-    //
     func getUserData()
     {
         if((FBSDKAccessToken.currentAccessToken()) != nil)
@@ -331,17 +443,20 @@ class MapViewController: UIViewController, GMSMapViewDelegate, messageProtocol, 
     {
         super.didReceiveMemoryWarning()
     }
+    //--------------------------------------------------------------------------------------------------//
     
     //MessageView Functions defined here
     
-    func cancelButtonPressed() {
+    //Cancel the view
+    func cancelButtonPressed()
+    {
         self.messageView?.hidden = true
         self.messageView?.messageTextField.text = ""
     }
     
+    //Send the message to Firebase
     func sendButtonPressed()
     {
-        //Send message to firebase
         self.message = self.messageView?.messageTextField.text
         self.messageView?.hidden = true
         self.messageView?.messageTextField.text = ""

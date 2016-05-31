@@ -9,11 +9,12 @@
 import UIKit
 import AVFoundation
 import Firebase
-import FirebaseDatabase
 
 class CameraViewController: UIViewController,
     UIImagePickerControllerDelegate
 {
+    var ref = FIRDatabase.database().reference()
+
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     var captureSession: AVCaptureSession?
@@ -27,26 +28,9 @@ class CameraViewController: UIViewController,
     var shouldTransferData = false
     var imageCaptured: UIImage?
     
-    
-    //var ref = FIRDatabase.database().reference()
-    var base64String: NSString!
-    
-    //Upload image to Firebase, and transfer it back to the Map View Controller
     @IBAction func sendImage(sender: AnyObject)
     {
-        //Put image into firebase over here
-        //Encode the image as Base 64
-        let imageData: NSData? = UIImagePNGRepresentation(self.imageTaken.image!)
-        if(imageData != nil)
-        {
-            self.base64String = imageData!.base64EncodedStringWithOptions(.EncodingEndLineWithLineFeed)
-           // self.ref.child("photos").childByAutoId().setValue(["image": self.base64String])
-        } else {
-            print("Error!!!!!!!!! FUCK")
-        }
-        
-        self.shouldTransferData = true
-        self.performSegueWithIdentifier("backToMap", sender: self)
+        //Used to Unwind segue
     }
     
     //Cancel the current photo taken, to take another photo
@@ -60,14 +44,14 @@ class CameraViewController: UIViewController,
     //Go back to Map controller without saving any image
     @IBAction func backButtonPressed(sender: AnyObject)
     {
-        self.performSegueWithIdentifier("backToMap", sender: self)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.shouldTransferData = false
         self.sendButton.hidden = true
         self.cancelButton.hidden = true
+        self.navigationController?.navigationBarHidden = true
     }
     
     override func didReceiveMemoryWarning() {

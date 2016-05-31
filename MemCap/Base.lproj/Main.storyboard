@@ -114,7 +114,7 @@
                                 <state key="normal" image="Camera_icon"/>
                                 <connections>
                                     <action selector="drop_picture:" destination="XhC-2d-jnc" eventType="touchUpInside" id="u18-Ts-KIF"/>
-                                    <segue destination="oCT-HO-mzl" kind="showDetail" identifier="toCamera" id="REd-Uw-Jfb"/>
+                                    <segue destination="oCT-HO-mzl" kind="show" identifier="toCamera" action="showDetailViewController:sender:" id="REd-Uw-Jfb"/>
                                 </connections>
                             </button>
                             <view alpha="0.30000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PAj-5f-gv7" userLabel="Dark Background">
@@ -186,6 +186,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="darkShadow1" destination="T5q-XO-Hhu" id="tU0-n5-WLp"/>
+                        <outlet property="darkShadow2" destination="PAj-5f-gv7" id="SE5-Xv-L0w"/>
+                        <outlet property="darkShadow3" destination="X33-ck-h0L" id="TsE-rE-IvR"/>
                         <outlet property="mapView" destination="V2M-y2-CxU" id="DJb-FY-1k1"/>
                     </connections>
                 </viewController>
@@ -212,7 +215,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AUj-tK-iG7">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahT-Mh-Zb5" userLabel="Cancel_button">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahT-Mh-Zb5" userLabel="Cancel_button">
                                 <rect key="frame" x="20" y="20" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="Naw-e9-J9S"/>
@@ -223,7 +226,7 @@
                                     <action selector="cancelImage:" destination="oCT-HO-mzl" eventType="touchUpInside" id="je8-K5-YQ4"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IcS-h5-9Ar" userLabel="Send_button">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IcS-h5-9Ar" userLabel="Send_button">
                                 <rect key="frame" x="540" y="28" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="72l-qi-5oE"/>
@@ -232,6 +235,7 @@
                                 <state key="normal" title="Button" image="Send_icon"/>
                                 <connections>
                                     <action selector="sendImage:" destination="oCT-HO-mzl" eventType="touchUpInside" id="dG8-TW-EWK"/>
+                                    <segue destination="SzQ-Yv-1jt" kind="unwind" unwindAction="unwindAction:" id="7Lr-OV-xWN"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Z9-9C-R4u" userLabel="Pic_button">
@@ -254,7 +258,6 @@
                                 <state key="normal" title="Button" image="Back_icon"/>
                                 <connections>
                                     <action selector="backButtonPressed:" destination="oCT-HO-mzl" eventType="touchUpInside" id="mhX-Y4-00J"/>
-                                    <segue destination="XhC-2d-jnc" kind="showDetail" identifier="backToMap" id="Ulh-0f-KlD"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -286,8 +289,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZTv-q1-F4k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="SzQ-Yv-1jt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3110" y="-1318"/>
+            <point key="canvasLocation" x="2966" y="-611"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Q71-l7-ssf">
@@ -321,7 +325,4 @@
         <image name="Send_icon" width="175" height="184"/>
         <image name="Shutter_icon" width="509" height="509"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Ulh-0f-KlD"/>
-    </inferredMetricsTieBreakers>
 </document>
